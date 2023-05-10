@@ -60,7 +60,7 @@ export default function solution(content) {
     }
   }
   const averageLifeDays = dataArr.filter((el)=>el[1].includes('Леса')).reduce(getLifeSpan, 0) / dataArr.length
-
+  console.log(averageLifeDays)
   const years = Math.floor((averageLifeDays / 365))
   const days = Math.floor((averageLifeDays - +years * 365))
 
@@ -72,11 +72,14 @@ export default function solution(content) {
     acc.push(areas)
     return acc
   },[]).flat()
+
   const dangerousDict = dangerousAreas.reduce((acc, el)=>{
     acc[el] = (acc[el] || 0) + 1;
   return acc;
     }, {})
-    const mostDangerousArea = Object.keys(dangerousDict).reduce((a, b) => dangerousDict[a] > dangerousDict[b] ? a : b)
+
+  const mostDangerousArea = Object.keys(dangerousDict).reduce((a, b) => dangerousDict[a] > dangerousDict[b] ? a : b)
+
   console.log(`Самое опасное место: ${mostDangerousArea}`)
   // END
 }
