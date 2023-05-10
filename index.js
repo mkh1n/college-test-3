@@ -1,3 +1,4 @@
+import _ from 'lodash';
 export default function solution(content) {
   const rawData = content.split('\n').slice(2)
   const dataArr = rawData.map((row)=>row.substring(1, row.length-2).split('|').map((el)=>el.trim()))
@@ -23,6 +24,7 @@ export default function solution(content) {
     if (lifeStr.includes('-')){
       const from = lifeStr.split('-')[0]
       const to = lifeStr.split('-')[1].split(' ')[0]
+      console.log(el, from, to)
       result = (Number(from) + Number(to)) / 2
     } else{
       result = Number(lifeStr.split(' ')[0])
@@ -57,9 +59,24 @@ export default function solution(content) {
       return 'лет'
     }
   }
-  const averageLifeDays = dataArr.filter((el)=>el[1].includes('Леса')).reduce(getLifeSpan, 0)/dataArr.length
+  const averageLifeDays = dataArr.filter((el)=>el[1].includes('Леса')).reduce(getLifeSpan, 0) / dataArr.length
+
   const years = Math.floor((averageLifeDays / 365))
   const days = Math.floor((averageLifeDays - +years * 365))
+
   console.log(`Среднее время жизни лесных растений: ${years} ${getDateStr(years, 'year')} и ${days} ${getDateStr(days, 'day')}`)
+
+  //Пятый шаг
+  const dangerousAreas = dataArr.filter((el)=>el[4] == 'Да').reduce((acc, el)=>{
+    const areas = el[1].split(', ').map((el)=>el.toLowerCase()).flat();
+    acc.push(areas)
+    return acc
+  },[]).flat()
+  const dangerousDict = dangerousAreas.reduce((acc, el)=>{
+    acc[el] = (acc[el] || 0) + 1;
+  return acc;
+    }, {})
+    const mostDangerousArea = Object.keys(dangerousDict).reduce((a, b) => dangerousDict[a] > dangerousDict[b] ? a : b)
+  console.log(`Самое опасное место: ${mostDangerousArea}`)
   // END
 }
