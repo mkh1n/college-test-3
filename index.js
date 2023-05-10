@@ -35,31 +35,33 @@ export default function solution(content) {
     return acc
   }
   const getDateStr = (num, period) => {
-    const first = [2,3,4]
-    const second = [5,6,7,8,9,0]
-    if (num[num.length-1] == 1){
+    const str = String(num)
+    const first = ['2','3','4']
+    const second = ['5','6','7','8','9','0']
+    if (num[num.length-1] == '1'){
       if(period=='day'){
         return 'день'
       }
       return 'год'
     }
-    else if (first.includes(+num[num.length-1])){
+    else if (first.includes(str[str.length-1])){
       if(period=='day'){
         return 'дня'
       }
       return 'года'
     }
-    else if (second.includes(+num[num.length-1])){
+    else if (second.includes(str[str.length-1])){
       if(period=='day'){
         return 'дней'
       }
       return 'лет'
     }
   }
-  const averageLifeDays = dataArr.reduce(getLifeSpan, 0)/dataArr.length
-  const years = (averageLifeDays / 365).toFixed(0)
+  const averageLifeDays = dataArr.filter((el)=>el[1].includes('Леса')).reduce(getLifeSpan, 0)/dataArr.length
+  const years = Math.floor((averageLifeDays / 365))
   switch(years){}
-  const days = (averageLifeDays - +years * 365).toFixed(0)
+  const days = Math.floor((averageLifeDays - +years * 365))
+  console.log(averageLifeDays)
   console.log(`${years} ${getDateStr(years, 'year')} и ${days} ${getDateStr(days, 'day')}`)
   // END
 }
