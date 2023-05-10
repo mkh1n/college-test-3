@@ -60,6 +60,6 @@ export default function solution(content) {
   const averageLifeDays = dataArr.filter((el)=>el[1].includes('Леса')).reduce(getLifeSpan, 0)/dataArr.length
   const years = Math.floor((averageLifeDays / 365))
   const days = Math.floor((averageLifeDays - +years * 365))
-  console.log(`${years} ${getDateStr(years, 'year')} и ${days} ${getDateStr(days, 'day')}`)
+  console.log(`Среднее время жизни: ${years} ${getDateStr(years, 'year')} и ${days} ${getDateStr(days, 'day')}`)
   // END
 }
